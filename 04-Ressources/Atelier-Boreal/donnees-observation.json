@@ -1,0 +1,111 @@
+{
+  "statut": "Données synthétiques pour les exercices, aucune observation réelle",
+  "actifs": [
+    {
+      "nom": "catalogue",
+      "proprietaire": "Équipe vente",
+      "donnees": "publiques"
+    },
+    {
+      "nom": "facturation",
+      "proprietaire": "Comptabilité",
+      "donnees": "privées"
+    },
+    {
+      "nom": "camera",
+      "proprietaire": "Maintenance",
+      "donnees": "enregistrements fictifs"
+    }
+  ],
+  "sources": [
+    {
+      "source": "inventaire validé",
+      "nom": "catalogue.atelier.test",
+      "confiance": "confirmé dans le scénario"
+    },
+    {
+      "source": "certificat ancien",
+      "nom": "ancien.atelier.test",
+      "confiance": "à confirmer"
+    },
+    {
+      "source": "document public",
+      "nom": "fournisseur.test",
+      "confiance": "tiers hors périmètre"
+    }
+  ],
+  "flux": [
+    {
+      "source": "invites",
+      "destination": "catalogue",
+      "service": "8000",
+      "attendu": "autoriser"
+    },
+    {
+      "source": "invites",
+      "destination": "facturation",
+      "service": "445",
+      "attendu": "refuser"
+    },
+    {
+      "source": "comptabilite",
+      "destination": "facturation",
+      "service": "445",
+      "attendu": "autoriser"
+    },
+    {
+      "source": "cameras",
+      "destination": "facturation",
+      "service": "445",
+      "attendu": "refuser"
+    }
+  ],
+  "journaux": [
+    {
+      "heure": "09:00",
+      "compte": "Alice",
+      "action": "lire",
+      "ressource": "101",
+      "statut": 200,
+      "octets": 120
+    },
+    {
+      "heure": "09:01",
+      "compte": "Alice",
+      "action": "lire",
+      "ressource": "202",
+      "statut": 200,
+      "octets": 125
+    },
+    {
+      "heure": "09:02",
+      "compte": "Alice",
+      "action": "lire-corrige",
+      "ressource": "202",
+      "statut": 403,
+      "octets": 35
+    },
+    {
+      "heure": "09:03",
+      "compte": "Alice",
+      "action": "lire-corrige",
+      "ressource": "101",
+      "statut": 200,
+      "octets": 120
+    }
+  ],
+  "politiques": [
+    {
+      "role": "generation-rapports",
+      "action": "ecrire",
+      "ressource": "rapports/quotidiens/*",
+      "decision": "autoriser"
+    },
+    {
+      "role": "generation-rapports",
+      "action": "supprimer",
+      "ressource": "sauvegardes/*",
+      "decision": "refuser"
+    }
+  ]
+}
